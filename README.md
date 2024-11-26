@@ -12,22 +12,9 @@ A Node.js implementation of the Model Context Protocol (MCP) that provides secur
 
 ## Installation
 
-To use with Claude Desktop, add the server config:
+Run `npx mcp-shell`. The server will start and listen for MCP commands via standard I/O.
 
-On MacOS: `~/Library/Application Support/Claude/claude_desktop_config.json`
-On Windows: `%APPDATA%/Claude/claude_desktop_config.json`
-
-```json
-{
-  "mcpServers": {
-    "shell-server": {
-      "command": "/path/to/mcp-shell-server/build/index.js"
-    }
-  }
-}
-```
-
-The server will start and listen for MCP commands via standard I/O.
+Start (or restart) Claude Desktop and you should see the MCP tool listed on the landing page.
 
 ## Security Features
 
