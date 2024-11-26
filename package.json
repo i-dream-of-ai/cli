@@ -7,7 +7,7 @@
     "mcp-shell": "./build/index.js"
   },
   "files": [
-    "dist/**/*"
+    "build/**/*"
   ],
   "scripts": {
     "build": "tsc && node -e \"require('fs').chmodSync('build/index.js', '755')\"",
