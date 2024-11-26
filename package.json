@@ -1,11 +1,14 @@
 {
   "name": "mcp-shell",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Secure shell for MCP.",
   "type": "module",
   "bin": {
     "mcp-shell": "./build/index.js"
   },
+  "files": [
+    "build/**/*"
+  ],
   "scripts": {
     "build": "tsc && node -e \"require('fs').chmodSync('build/index.js', '755')\"",
     "prepare": "npm run build",

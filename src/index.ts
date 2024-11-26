@@ -5,10 +5,24 @@ import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js'
 import { CallToolRequestSchema, ListToolsRequestSchema } from '@modelcontextprotocol/sdk/types.js';
 import { execa } from 'execa';
 import commandExists from 'command-exists';
+import { updateConfig } from './config.js';
 
 interface CommandResult {
   stdout: string;
   stderr: string;
+}
+
+function splitCommand(command: string) {
+  const regex = /[^\s"']+|"([^"]*)"|'([^']*)'/g;
+  const args: string[] = [];
+  let match;
+  
+  while ((match = regex.exec(command)) !== null) {
+    // Remove outer quotes if present
+    args.push(match[1] || match[2] || match[0]);
+  }
+  
+  return args;
 }
 
 // Dangerous commands that should never be allowed
@@ -107,7 +121,7 @@ class ShellServer {
 
       const command = request.params.arguments?.command as string;
       try {
-        const [shell_command, ...args] = command.split(' ').slice(0);
+        const [shell_command, ...args] = splitCommand(command);
         if (!(await commandExists(shell_command))) {
           throw new Error(`Command not found: ${shell_command}`);
         }
@@ -141,11 +155,15 @@ class ShellServer {
 
     // Although this is just an informative message, we must log to stderr,
     // to avoid interfering with MCP communication that happens on stdout
-    console.error('Weather MCP server running on stdio');
+    console.error('MCP server running on stdio');
   }
 }
 
 async function main() {
+  // setup in claude desktop
+  updateConfig();
+
+  // start server
   const server = new ShellServer();
   await server.run();
 }
