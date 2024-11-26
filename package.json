@@ -1,0 +1,11 @@
+{
+  "name": "mcp-shell",
+  "version": "0.0.1",
+  "description": "Secure shell for MCP.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "High Dimensional Research",
+  "license": "SEE LICENSE IN LICENSE.md"
+}

@@ -1,0 +1,1 @@
+Copyright 2024 Ishmail Inc. dba High Dimensional Research. All rights reserved.
