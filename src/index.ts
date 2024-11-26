@@ -12,6 +12,19 @@ interface CommandResult {
   stderr: string;
 }
 
+function splitCommand(command: string) {
+  const regex = /[^\s"']+|"([^"]*)"|'([^']*)'/g;
+  const args: string[] = [];
+  let match;
+  
+  while ((match = regex.exec(command)) !== null) {
+    // Remove outer quotes if present
+    args.push(match[1] || match[2] || match[0]);
+  }
+  
+  return args;
+}
+
 // Dangerous commands that should never be allowed
 const BLACKLISTED_COMMANDS = new Set([
   // File System Destruction Commands
@@ -108,7 +121,7 @@ class ShellServer {
 
       const command = request.params.arguments?.command as string;
       try {
-        const [shell_command, ...args] = command.split(' ').slice(0);
+        const [shell_command, ...args] = splitCommand(command);
         if (!(await commandExists(shell_command))) {
           throw new Error(`Command not found: ${shell_command}`);
         }
