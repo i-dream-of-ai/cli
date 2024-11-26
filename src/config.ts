@@ -28,30 +28,24 @@ export function updateConfig() {
   const configPath = getConfigPath();
 
   try {
-    // Read existing config or create new one
     let config: { mcpServers?: {'shell-server'?: { command: string }}} = {};
     try {
       config = JSON.parse(fs.readFileSync(configPath, 'utf8'));
     } catch (err) {
-      // File doesn't exist or is invalid JSON
       console.log('Creating new config file');
     }
 
-    // Ensure required structure exists
     config.mcpServers = config.mcpServers || {};
     
-    // Update the configuration
     config.mcpServers['shell-server'] = {
       command: scriptPath
     };
 
-    // Create directory if it doesn't exist
     const configDir = path.dirname(configPath);
     if (!fs.existsSync(configDir)) {
       fs.mkdirSync(configDir, { recursive: true });
     }
 
-    // Write the updated config
     fs.writeFileSync(configPath, JSON.stringify(config, null, 2));
     console.log('Updated config at:', configPath);
     console.log('Added server with command:', scriptPath);
