@@ -1,6 +1,6 @@
 {
   "name": "mcp-shell",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Secure shell for MCP.",
   "type": "module",
   "bin": {
