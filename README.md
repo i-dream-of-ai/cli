@@ -94,11 +94,3 @@ To modify the security settings, you can:
 1. Edit the `BLACKLISTED_COMMANDS` set to adjust blocked commands
 2. Modify the `validateCommand` function to add additional validation rules
 3. Enhance the command parsing logic in the `CallToolRequestSchema` handler
-
-## License
-
-[Add your chosen license here]
-
-## Contributing
-
-[Add contribution guidelines if applicable]
