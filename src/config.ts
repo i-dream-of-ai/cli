@@ -4,9 +4,9 @@ import os from 'os';
 
 function getConfigPath() {
   switch (process.platform) {
-    case 'darwin': // MacOS
+    case 'darwin':
       return path.join(os.homedir(), 'Library', 'Application Support', 'Claude', 'claude_desktop_config.json');
-    case 'win32': // Windows
+    case 'win32':
       return path.join(process.env.APPDATA || '', 'Claude', 'claude_desktop_config.json');
     default:
       throw new Error('Unsupported platform');
