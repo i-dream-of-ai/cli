@@ -5,6 +5,7 @@ import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js'
 import { CallToolRequestSchema, ListToolsRequestSchema } from '@modelcontextprotocol/sdk/types.js';
 import { execa } from 'execa';
 import commandExists from 'command-exists';
+import { updateConfig } from './config.js';
 
 interface CommandResult {
   stdout: string;
@@ -146,6 +147,10 @@ class ShellServer {
 }
 
 async function main() {
+  // setup in claude desktop
+  updateConfig();
+
+  // start server
   const server = new ShellServer();
   await server.run();
 }
