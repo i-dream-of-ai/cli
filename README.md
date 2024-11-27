@@ -1,6 +1,6 @@
 # Shell MCP Server
 
-A Node.js implementation of the Model Context Protocol (MCP) that provides secure shell command execution capabilities. This server allows AI models to execute shell commands in a controlled environment with built-in security measures.
+A Node.js implementation of the Model Context Protocol (MCP) that provides secure shell command execution capabilities. This server allows AI models to execute shell commands in a controlled environment with built-in security measures. Easily integrates with [Claude Desktop](https://claude.ai/download) for connecting Claude with your shell.
 
 ## Features
 
@@ -14,7 +14,7 @@ A Node.js implementation of the Model Context Protocol (MCP) that provides secur
 
 Run `npx mcp-shell`. The server will start and listen for MCP commands via standard I/O.
 
-Start (or restart) Claude Desktop and you should see the MCP tool listed on the landing page.
+Start (or restart) [Claude Desktop](https://claude.ai/download) and you should see the MCP tool listed on the landing page.
 
 ## Security Features
 
