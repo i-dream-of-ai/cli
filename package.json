@@ -1,7 +1,7 @@
 {
   "name": "mcp-shell",
-  "version": "0.0.2",
-  "description": "Secure shell for MCP.",
+  "version": "0.1.0",
+  "description": "Secure shell server for the Model Context Protocol. Integrates with Claude Desktop.",
   "type": "module",
   "bin": {
     "mcp-shell": "./build/index.js"
@@ -16,7 +16,7 @@
     "inspector": "npx @modelcontextprotocol/inspector build/index.js"
   },
   "author": "High Dimensional Research",
-  "license": "SEE LICENSE IN LICENSE.md",
+  "license": "MIT",
   "dependencies": {
     "@modelcontextprotocol/sdk": "^0.6.0",
     "@types/command-exists": "^1.2.3",
