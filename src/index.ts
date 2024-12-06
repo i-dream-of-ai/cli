@@ -13,15 +13,20 @@ interface CommandResult {
 }
 
 function splitCommand(command: string) {
+  // Preserve literal newlines in the command string when inside quotes
   const regex = /[^\s"']+|"([^"]*)"|'([^']*)'/g;
   const args: string[] = [];
   let match;
-  
+
   while ((match = regex.exec(command)) !== null) {
-    // Remove outer quotes if present
-    args.push(match[1] || match[2] || match[0]);
+    // If this is a quoted string (match[1] or match[2] exists)
+    // preserve any literal \n characters
+    const arg = match[1] || match[2] || match[0];
+    // Convert literal \n strings to actual newlines
+    const processed = arg.replace(/\\n/g, '\n');
+    args.push(processed);
   }
-  
+
   return args;
 }
 
