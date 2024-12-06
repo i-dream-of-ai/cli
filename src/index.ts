@@ -12,24 +12,6 @@ interface CommandResult {
   stderr: string;
 }
 
-function splitCommand(command: string) {
-  // Preserve literal newlines in the command string when inside quotes
-  const regex = /[^\s"']+|"([^"]*)"|'([^']*)'/g;
-  const args: string[] = [];
-  let match;
-
-  while ((match = regex.exec(command)) !== null) {
-    // If this is a quoted string (match[1] or match[2] exists)
-    // preserve any literal \n characters
-    const arg = match[1] || match[2] || match[0];
-    // Convert literal \n strings to actual newlines
-    const processed = arg.replace(/\\n/g, '\n');
-    args.push(processed);
-  }
-
-  return args;
-}
-
 // Dangerous commands that should never be allowed
 const BLACKLISTED_COMMANDS = new Set([
   // File System Destruction Commands
@@ -126,16 +108,16 @@ class ShellServer {
 
       const command = request.params.arguments?.command as string;
       try {
-        const [shell_command, ...args] = splitCommand(command);
-        if (!(await commandExists(shell_command))) {
-          throw new Error(`Command not found: ${shell_command}`);
+        const baseCommand = command.trim().split(/\s+/)[0];
+        if (!(await commandExists(baseCommand))) {
+          throw new Error(`Command not found: ${baseCommand}`);
         }
 
-        if (!validateCommand(shell_command)) {
-          throw new Error(`Command not allowed: ${shell_command}`);
+        if (!validateCommand(baseCommand)) {
+          throw new Error(`Command not allowed: ${baseCommand}`);
         }
 
-        const { stdout, stderr } = await execa(shell_command, args, {
+        const { stdout, stderr } = await execa(command, [], {
           shell: true,
           env: process.env,
         });
