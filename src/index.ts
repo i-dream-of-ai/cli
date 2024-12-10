@@ -150,8 +150,15 @@ class ShellServer {
 }
 
 async function main() {
+  // Get command line arguments
+  const args = process.argv.slice(2);
+  console.log(args.join(' '));
+
   // setup in claude desktop
-  updateConfig();
+  if (args.includes('config')) {
+    const debug = args.includes('--debug');
+    updateConfig(debug);
+  }
 
   // start server
   const server = new ShellServer();

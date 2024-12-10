@@ -19,13 +19,13 @@ function getConfigPath() {
   }
 }
 
-export function updateConfig() {
+export function updateConfig(debug = false) {
   const isNpx = Boolean(
     process.argv[1].includes('/_npx/') ||
       process.env.npm_command === 'exec' ||
       process.env._?.includes('/_npx/'),
   );
-  if (!isNpx) {
+  if (!isNpx && !debug) {
     console.error({"error": 'Not running via npx'});
     return;
   }
@@ -50,7 +50,8 @@ export function updateConfig() {
       }
     } else {
       config.mcpServers['shell-server'] = {
-        command: scriptPath,
+        command: `${debug ? 'node' : 'npx'}`,
+        args: debug ? [scriptPath] : ['mcp-shell']
       };
     }
 
